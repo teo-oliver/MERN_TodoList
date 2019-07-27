@@ -1,7 +1,9 @@
 import React, { Fragment } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import './App.css';
 import TodoList from './components/TodoList';
+import Landing from './components/Landing';
 
 // Redux
 import { Provider } from 'react-redux';
@@ -23,11 +25,16 @@ const store = createStore(
 const App = () => {
   return (
     <Provider store={store}>
-      <Fragment>
-        <Navbar />
-        <br />
-        <TodoList />
-      </Fragment>
+      <Router>
+        <Fragment>
+          <Navbar />
+          <br />
+          <Switch>
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/app" component={TodoList} />
+          </Switch>
+        </Fragment>
+      </Router>
     </Provider>
   );
 };

@@ -8,7 +8,6 @@ const todoReducer = (state = {}, action) => {
     case CREATE_TODO:
       return { [action.payload._id]: action.payload, ...state };
     case DELETE_TODO:
-      console.log(_.omit(state, action.payload));
       return _.omit(state, action.payload._id);
 
     default:

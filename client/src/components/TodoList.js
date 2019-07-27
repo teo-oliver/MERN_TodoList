@@ -5,7 +5,6 @@ import { getTodos, deleteTodo, createTodo } from '../actions/todo';
 // Todo Hover List, click to delete?
 // Change Background
 // Add transitions
-// Add setTimeOut to todos
 
 const TodoList = ({ todos, getTodos, createTodo, deleteTodo }) => {
   const [text, setText] = useState('');
@@ -27,21 +26,29 @@ const TodoList = ({ todos, getTodos, createTodo, deleteTodo }) => {
   const inputForm = () => {
     return (
       <div className="container">
-        <form className="form-inline" onSubmit={submitTodo}>
-          <input
-            className="form-control mr-sm-2"
-            name="text"
-            placeholder="Create a task"
-            value={text}
-            onChange={e => setText(e.target.value)}
-          />
-          <button
-            className="btn btn-outline-success my-2 my-sm-0"
-            type="submit"
-          >
-            Submit
-          </button>
-        </form>
+        <h1 className="text-center display-2">TodoList</h1>
+        <p className="lead text-center">Welcome to my todolist application</p>
+        <div className="row">
+          <form className="col-8 mx-auto" onSubmit={submitTodo}>
+            <div className="input-group">
+              <input
+                className="form-control"
+                name="text"
+                placeholder="Create a task"
+                value={text}
+                onChange={e => setText(e.target.value)}
+              />
+              <span>
+                <button
+                  className="btn btn-outline-success my-2 my-sm-0"
+                  type="submit"
+                >
+                  Submit
+                </button>
+              </span>
+            </div>
+          </form>
+        </div>
       </div>
     );
   };
@@ -49,8 +56,9 @@ const TodoList = ({ todos, getTodos, createTodo, deleteTodo }) => {
   const renderList = () => {
     return todos.map(todo => {
       return (
-        <li className="list-group-item" key={todo._id}>
+        <li key={todo._id}>
           {todo.todo}
+
           <button
             className="btn btn-sm btn-outline-danger"
             onClick={() => handleDelete(todo._id)}
@@ -66,12 +74,15 @@ const TodoList = ({ todos, getTodos, createTodo, deleteTodo }) => {
     <div className="container">
       {inputForm()}
       <br />
-      <ul className="list-group list-group-flush">{renderList()}</ul>
+      <div className="row">
+        <ul className="col-8 mx-auto">{renderList()}</ul>
+      </div>
     </div>
   );
 };
 
 const mapStateToProps = state => {
+  // console.log(state);
   return {
     todos: Object.values(state.todos)
   };
