@@ -28,7 +28,6 @@ const App = () => {
       <Router>
         <Fragment>
           <Navbar />
-          <br />
           <Switch>
             <Route exact path="/" component={Landing} />
             <Route exact path="/app" component={TodoList} />

@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
 import { getTodos, deleteTodo, createTodo } from '../actions/todo';
 
+import Image from '../img/carmine-de-fazio-3ytjETpQMNY-unsplash.jpg';
+
 // Todo Hover List, click to delete?
 // Change Background
-// Add transitions
+// Add transitions to items
 
 const TodoList = ({ todos, getTodos, createTodo, deleteTodo }) => {
   const [text, setText] = useState('');
 
   useEffect(() => {
+    // document.body.style.backgroundImage = `url(${Image})`;
     getTodos();
   }, []);
 
@@ -25,9 +29,7 @@ const TodoList = ({ todos, getTodos, createTodo, deleteTodo }) => {
 
   const inputForm = () => {
     return (
-      <div className="container">
-        <h1 className="text-center display-2">TodoList</h1>
-        <p className="lead text-center">Welcome to my todolist application</p>
+      <div>
         <div className="row">
           <form className="col-8 mx-auto" onSubmit={submitTodo}>
             <div className="input-group">
@@ -38,14 +40,14 @@ const TodoList = ({ todos, getTodos, createTodo, deleteTodo }) => {
                 value={text}
                 onChange={e => setText(e.target.value)}
               />
-              <span>
+              <div className="input-group-append">
                 <button
-                  className="btn btn-outline-success my-2 my-sm-0"
+                  className="btn btn-outline-secondary my-2 my-sm-0"
                   type="submit"
                 >
                   Submit
                 </button>
-              </span>
+              </div>
             </div>
           </form>
         </div>
@@ -54,29 +56,42 @@ const TodoList = ({ todos, getTodos, createTodo, deleteTodo }) => {
   };
 
   const renderList = () => {
-    return todos.map(todo => {
-      return (
-        <li key={todo._id}>
-          {todo.todo}
+    return (
+      <TransitionGroup>
+        {todos.map(todo => (
+          <CSSTransition key={todo._id} timeout={500} classNames="fade">
+            <li key={todo._id}>
+              {todo.todo}
 
-          <button
-            className="btn btn-sm btn-outline-danger"
-            onClick={() => handleDelete(todo._id)}
-          >
-            X
-          </button>
-        </li>
-      );
-    });
+              <button
+                style={{ float: 'right' }}
+                className="btn btn-outline-secondary my-2 my-sm-0"
+                onClick={() => handleDelete(todo._id)}
+              >
+                X
+              </button>
+            </li>
+          </CSSTransition>
+        ))}
+      </TransitionGroup>
+    );
   };
 
   return (
     <div className="container">
-      {inputForm()}
       <br />
+      <br />
+      <h1 className="text-center display-2">TodoList</h1>
+      <p className="lead text-center">Welcome...let's plan the day.</p>
+
+      {inputForm()}
       <div className="row">
         <ul className="col-8 mx-auto">{renderList()}</ul>
       </div>
+      <p class="lead font-italic text-center mt-5">
+        Obs: "Todos" will be deleted automatically after 8 seconds to keep the
+        app clean for newcomers to test.
+      </p>
     </div>
   );
 };

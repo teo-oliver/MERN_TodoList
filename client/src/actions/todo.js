@@ -26,7 +26,7 @@ export const createTodo = formData => async dispatch => {
   const deleteAfterAWhile = () => {
     dispatch(deleteTodo(res.data._id));
   };
-  setTimeout(deleteAfterAWhile, 10000);
+  setTimeout(deleteAfterAWhile, 6000);
 };
 
 export const deleteTodo = id => async dispatch => {

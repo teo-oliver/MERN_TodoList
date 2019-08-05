@@ -1,14 +1,33 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-// TODO: add github link on the right corner
-
-function Navbar(props) {
+function Navbar() {
   return (
     <div>
-      <nav className="navbar navbar-light bg-light">
-        <span className="navbar-brand mb-0 h1">MERN_TodoList</span>
-        <span className="navbar-brand mb-0 h1">About</span>
-        <span className="navbar-brand mb-0 h1">GitHub</span>
+      <nav className="navbar">
+        <Link class="navbar-brand navbar-link" to="/">
+          Mern_Todo
+        </Link>
+        <div class="d-flex justify-content-end">
+          <Link class="navbar-brand navbar-link" to="/app">
+            TodoList
+          </Link>
+
+          <a
+            class="navbar-brand navbar-link"
+            href="https://github.com/teo-oliver"
+            target="_blank"
+          >
+            GitHub
+          </a>
+          <a
+            class="navbar-brand navbar-link"
+            href="https://www.linkedin.com/in/teo-oliver-84b33185/"
+            target="_blank"
+          >
+            About
+          </a>
+        </div>
       </nav>
     </div>
   );
